@@ -1,0 +1,125 @@
+{% extends 'common/dashboard_main.html' %}
+{% load static %}
+{% block content %}
+{% include 'common/header.html' %}
+<!-- // Header  -->
+{% include 'user/sidenav.html' %}
+
+<div class="content-wrapper">
+<div class="container-fluid overflow-hidden">
+    <div class="row margin-tb-90px margin-lr-10px sm-mrl-0px">
+        <!-- Page Title -->
+        <div id="page-title" class="padding-30px background-white full-width box-shadow">
+            <div class="container">
+                <ol class="breadcrumb opacity-5">
+                    <li><a href="{% url 'home' %}">Dashboard</a></li>
+                    <li><i class="ti ti-arrow-circle-right"></i></li>
+                    <li class="active">Make Booking</li>
+                </ol>
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-6">
+                            <h1 class="font-weight-300">Make Booking</h1>
+                        </div>
+                        <div class="col-6">
+                            <div class="text-right">
+                            </div>
+                        </div> 
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+
+        
+        <!-- // Page Title -->
+        <div class="container-fluid">
+            <div class="row" style="margin-top:40px">
+
+                <div class="col-lg-6 col-md-6  col-12 sm-mb-40px wow fadeInUp" data-wow-delay="0.2s" style="visibility: visible; animation-delay: 0.2s; animation-name: fadeInUp;margin-top: 30px;">
+                    <a href="#" data-toggle="modal" data-target="#addservice_{{i.id}}">
+                        <div class="pricing hover-effect">
+                            <div class="pricing-head text-center">
+                                <h3 class="font-weight-700 padding-40px background-main-color margin-0px text-white">
+                                    <span class=" z-index-2 position-relative d-block">{{service.service.category|title}}<span class="d-block text-small font-weight-300"></span>
+                                    </span>
+                                </h3>
+                            </div>
+                            <ul class="pricing-content text-center list-unstyled background-white">
+                                <li>Provider:<strong>{{service.user.organization}}</strong></li>
+                            </ul>
+                            <div class="pricing-footer">
+                                <a href="" class="btn btn-block background-grey-1 text-dark rounded-0">USD{{service.cost}}/month</a>
+                                <!-- <a href="" class="btn btn-block background-grey-1 text-dark rounded-0">Write Review</a>
+                                <a href="" class="btn btn-block background-grey-1 text-dark rounded-0">View Reviews</a>
+                                <a href="" class="btn btn-block background-second-color text-white rounded-0">Make Booking</a> -->
+                            
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-lg-6 col-md-6 col-12">
+                    <div id="paypal-button-container"></div>
+
+    <!-- Include the PayPal JavaScript SDK -->
+    <script src="https://www.paypal.com/sdk/js?client-id=Abyf1Cne1eyKPIcUeBO-gqMMvB-8dQIVMVxU3FG0YCsEFWYSV2WLHbmneTfy0vAYvSxlx6WGO6BPeeHU&currency=USD"></script>
+
+    <script>
+        // Render the PayPal button into #paypal-button-container
+        paypal.Buttons({
+
+            // Set up the transaction
+            createOrder: function(data, actions) {
+                return actions.order.create({
+                    purchase_units: [{
+                        amount: {
+                            value: '{{service.cost}}'
+                        }
+                    }]
+                });
+            },
+
+            // Finalize the transaction
+            onApprove: function(data, actions) {
+                return actions.order.capture().then(function(orderData) {
+                    // Successful capture! For demo purposes:
+                    console.log('Capture result', orderData, JSON.stringify(orderData, null, 2));
+                    var transaction = orderData.purchase_units[0].payments.captures[0];
+                    if (transaction.status == 'COMPLETED'){
+                        window.location.href = '/user/booking/success/{{service.id}}/'+transaction.id+'/';
+                    }
+                    alert('Transaction '+ transaction.status + ': ' + transaction.id + '\n\nSee console for all available details');
+
+                    // Replace the above to show a success message within this page, e.g.
+                    // const element = document.getElementById('paypal-button-container');
+                    // element.innerHTML = '';
+                    // element.innerHTML = '<h3>Thank you for your payment!</h3>';
+                    // Or go to another URL:  actions.redirect('thank_you.html');
+                });
+            }
+
+
+        }).render('#paypal-button-container');
+    </script>
+                </div>
+                
+    
+    
+                
+                
+    
+            </div>
+        </div>
+
+    </div>
+</div>
+<!-- /.container-fluid-->
+<!-- /.content-wrapper-->
+{% include 'common/small_footer.html' %}
+<!-- Scroll to Top Button-->
+<a class="scroll-to-top rounded" href="#page-top">
+  <i class="fa fa-angle-up"></i>
+</a>
+</div>
+
+{% endblock %}

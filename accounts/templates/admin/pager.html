@@ -1,0 +1,12 @@
+<div class="margin-bottom-30px">
+    <div class="padding-30px background-white border-radius-20 box-shadow">
+        <h3><i class="far fa-envelope-open margin-right-10px text-main-color"></i> Admin Message </h3>
+        <hr>
+        <form method="post" action>
+        {% csrf_token %}
+        {% load widget_tweaks %}
+        {% render_field form.message class="form-control" placeholder="Enter  Admin Message  here" id="exampleTextarea" rows="3" %}
+        <button type="submit" class="btn btn-md border-0 border-radius-10 background-main-color padding-lr-20px text-white margin-tb-10px">Sent Now</button>
+        </form>
+    </div>
+</div>

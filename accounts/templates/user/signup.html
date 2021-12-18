@@ -1,0 +1,143 @@
+{% extends 'common/main.html' %}
+{% load static %}
+{% block content %}
+{% include 'common/header.html' %}
+<!-- // Header  -->
+<br><br><br>
+
+
+
+<div id="page-title" class="padding-tb-30px gradient-white">
+    <div class="container text-center">
+        <ol class="breadcrumb opacity-5">
+            <li><a href="{% url 'index' %}">Home</a></li>
+            <li class="active">Sign Up</li>
+        </ol>
+        <h1 class="font-weight-300">User Sign Up</h1>
+    </div>
+</div>
+
+<div class="container margin-bottom-100px">
+    <!--======= log_in_page =======-->
+    <div id="log-in" class="site-form log-in-form box-shadow border-radius-10">
+
+        <div class="form-output">
+
+            <form method="post" action>
+                {% csrf_token %}
+
+                {% if form.errors %}
+                    {% for field in form %}
+                        {% for error in field.errors %}
+                            <div class="form-group label-floating">
+                                <div class="alert alert-danger" style="margin-left:20px">
+                                    <code>{{ error }}</code>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    {% endfor %}
+                {% endif %}
+                {% if dataform.errors %}
+                    {% for field in dataform %}
+                        {% for error in field.errors %}
+                            <div class="form-group label-floating">
+                                <div class="alert alert-danger" style="margin-left:20px">
+                                    <code>{{ error }}</code>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    {% endfor %}
+                {% endif %}
+                <div class="form-group label-floating">
+                    <label class="control-label">Your Email</label>
+                    {% load widget_tweaks %}
+                    {% render_field form.username class="form-control" type="email" required=true %}
+                </div>
+                <div class="form-group label-floating">
+                    <label class="control-label">Your Password</label>
+                    {% render_field form.password1 class="form-control" type="password" required=true %}
+                </div>
+
+                <div class="form-group label-floating">
+                    <label class="control-label">Confirm Your Password</label>
+                    {% render_field form.password2 class="form-control" type="password" required=true %}
+                </div>
+
+                <div class="form-group label-floating">
+                    <label class="control-label">Name</label>
+                    {% render_field dataform.name class="form-control" required=true  %}
+                </div>
+
+                <div class="form-group label-floating">
+                    <label class="control-label">Mobile</label>
+                    {% render_field dataform.mob class="form-control" required=true  %}
+                </div>
+
+                <div class="form-group label-floating">
+                    <label class="control-label">Gender</label>
+                    {% render_field dataform.sex class="form-control" required=true  %}
+                </div>
+                <div class="form-group label-floating">
+                    <label class="control-label">House/Flat No</label>
+                    {% render_field dataform.house class="form-control" required=true  %}
+                </div>
+
+                <div class="form-group label-floating">
+                    <label class="control-label">Street Line 1</label>
+                    {% render_field dataform.street1 class="form-control" required=true  %}
+                </div>
+
+                <div class="form-group label-floating">
+                    <label class="control-label">Street Line 2</label>
+                    {% render_field dataform.street2 class="form-control"  %}
+                </div>
+
+                <div class="form-group label-floating">
+                    <label class="control-label">City</label>
+                    {% render_field dataform.city class="form-control" required=true  %}
+                </div>
+
+                <div class="form-group label-floating">
+                    <label class="control-label">District</label>
+                    {% render_field dataform.district class="form-control" required=true %}
+                </div>
+
+                <div class="form-group label-floating">
+                    <label class="control-label">State</label>
+                    {% render_field dataform.state class="form-control" required=true  %}
+                </div>
+
+                <div class="form-group label-floating">
+                    <label class="control-label">Pincode</label>
+                    {% render_field dataform.pin class="form-control" required=true  %}
+                </div>
+
+                
+
+                <!-- <div class="remember">
+                    <div class="checkbox">
+                        <label>
+                        <input name="optionsCheckboxes" type="checkbox" required>
+                        I accept the <a href="#">Terms and Conditions</a> of the website
+                    </label>
+                    </div>
+                </div> -->
+
+                <button type="submit" class="btn btn-md btn-primary full-width">Complete sign up !</button>
+
+                <div class="or"></div>
+
+                <p>you have an account? <a href="{% url 'login' %}"> Sing in !</a> </p>
+            </form>
+
+        </div>
+    </div>
+    <!--======= // log_in_page =======-->
+
+</div>
+
+{% include 'common/footer.html' %}
+
+
+
+{% endblock %}

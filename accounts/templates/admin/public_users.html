@@ -1,0 +1,110 @@
+{% extends 'common/dashboard_main.html' %}
+{% load static %}
+{% block content %}
+{% include 'common/header.html' %}
+<!-- // Header  -->
+{% include 'admin/sidenav.html' %}
+
+<div class="content-wrapper">
+<div class="container-fluid overflow-hidden">
+    <div class="row margin-tb-90px margin-lr-10px sm-mrl-0px">
+        <!-- Page Title -->
+        <div id="page-title" class="padding-30px background-white full-width box-shadow">
+            <div class="container">
+                <ol class="breadcrumb opacity-5">
+                    <li><a href="{% url 'home' %}">Dashboard</a></li>
+                    <li><i class="ti ti-arrow-circle-right"></i></li>
+                    <li class="active">Users</li>
+                </ol>
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-6">
+                            <h1 class="font-weight-300">Users</h1>
+                        </div>
+                        <div class="col-6">
+                            <div class="text-right">
+                            </div>
+                        </div> 
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+
+        
+        <div class="container-fluid">
+            <div class="row" style="margin-top:40px">
+
+                {% for i in sp %} 
+                 <!-- Booking item -->
+                 <div class="col-lg-6 margin-bottom-45px full-width">
+                    <div class="background-white thum-hover box-shadow  hvr-float">
+                        <div class="padding-30px full-width">
+                            <img src="{{i.profile_picture.url}}" class="float-left margin-right-20px border-radius-60 margin-bottom-20px" alt="" style="width: 50px;height:50px">
+                            <div class="margin-left-85px">
+                                <a class="d-block text-dark text-medium margin-bottom-5px" href="#">{{i.name|title}} </a>
+                                <div class="d-block padding-tb-5px">Organization :  <a href="#" class="text-main-color">{{i.organization|title}}</a></div>
+                                <div class="d-block padding-tb-5px">Email :  <a href="#" class="text-main-color">{{i.email}}</a></div>
+                                <div class="d-block padding-tb-5px">Phone  :  <a href="#" class="text-main-color">{{i.mob}}</a></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- // Booking item -->
+
+                <!-- Logout Modal-->
+                <!-- <div class="modal fade" id="Approve_{{i.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Are you sure?</h5>
+                                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                        </button>
+                            </div>
+                            <div class="modal-body">Are you sure you want to approve this account?.</div>
+                            <div class="modal-footer">
+                                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                                <form method="post" action="{% url 'approve_account' i.id %}">
+                                    {% csrf_token %}
+                                <button class="btn btn-primary" type="submit">Approve</button></form>
+                            </div>
+                        </div>
+                    </div>
+                </div> -->
+                {% empty %}
+                <div class="alert alert-danger  margin-bottom-35px border-radius-10 padding-30px">
+                    <strong>OOPS!</strong> No Service Providers found
+                    <hr>
+                    <p class="margin-0px">Add new service providers to be listed out over here.</p>
+                </div>
+                {% endfor %}
+    
+    
+                
+                
+                <!-- pagination -->
+                <!-- <ul class="pagination pagination-md ">
+                    <li class="page-item disabled"><a class="page-link rounded-0" href="#" tabindex="-1">Previous</a></li>
+                    <li class="page-item"><a class="page-link" href="#">1</a></li>
+                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                    <li class="page-item"><a class="page-link rounded-0" href="#">Next</a></li>
+                </ul> -->
+                <!-- //pagination -->
+    
+            </div>
+        </div>
+
+    </div>
+</div>
+<!-- /.container-fluid-->
+<!-- /.content-wrapper-->
+{% include 'common/small_footer.html' %}
+<!-- Scroll to Top Button-->
+<a class="scroll-to-top rounded" href="#page-top">
+  <i class="fa fa-angle-up"></i>
+</a>
+</div>
+
+{% endblock %}

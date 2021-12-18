@@ -1,0 +1,260 @@
+{% extends 'common/dashboard_main.html' %}
+{% load static %}
+{% block content %}
+{% include 'common/header.html' %}
+<!-- // Header  -->
+{% if account.type == 'admin' %}
+    {% include 'admin/sidenav.html' %}
+{% elif account.type == 'service_provider' %}
+    {% include 'provider/sidenav.html' %}
+{% elif account.type == 'public' %}
+    {% include 'user/sidenav.html' %}
+{% endif %}
+
+<div class="content-wrapper">
+<div class="container-fluid overflow-hidden">
+    <div class="row margin-tb-90px margin-lr-10px sm-mrl-0px">
+        <!-- Page Title -->
+        <div id="page-title" class="padding-30px background-white full-width box-shadow">
+            <div class="container">
+                <ol class="breadcrumb opacity-5">
+                    <li><a href="{% url 'home' %}">Dashboard</a></li>
+                    <li><i class="ti ti-arrow-circle-right"></i></li>
+                    <li class="active">My Profile</li>
+                </ol>
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-6">
+                            <h1 class="font-weight-300">My Profile</h1>
+                        </div>
+                        <div class="col-6">
+                            <div class="text-right">
+                            </div>
+                        </div> 
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+
+        
+        <div class="container-fluid">
+            <div class="row" style="margin-top:40px">
+
+                <div class="row margin-tb-45px full-width">
+                    <div class="col-md-4">
+                        <div class="padding-15px background-white">
+                            <a href="#" class="d-block margin-bottom-10px"><img src="{{account.profile_picture.url}}" alt=""></a>
+                            <a href="#" class="btn btn-sm  text-white background-main-color btn-block" data-toggle="modal" data-target="#changepic">Upload Image</a>
+                        </div>
+                    </div>
+                    <!-- Logout Modal-->
+                    <div class="modal fade" id="changepic" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Update profile picture</h5>
+                                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                            </button>
+                                </div>
+                                <form action="{% url 'update_pic' %}" enctype="multipart/form-data" method="post">
+                                    {% csrf_token %}
+                                {% load widget_tweaks %}
+                                {% render_field picform.profile_picture class="form-control form-control-sm" required="true" %}
+                                <div class="modal-footer">
+                                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                                    <button class="btn btn-primary" type="submit">Save</button>
+                                </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-8">
+                        <form method="post" action>
+                            {% csrf_token %}
+                        <div class="row">
+                            {% if account.type == 'admin' %}
+                            <div class="col-md-6 margin-bottom-20px">
+                                <label><i class="far fa-user margin-right-10px"></i>Name</label>
+                                {% load widget_tweaks %}
+                                {% render_field form.name type="text" class="form-control form-control-sm" required="true" %}
+                            </div>
+                            <div class="col-md-6 margin-bottom-20px">
+                                <label><i class="far fa-envelope-open margin-right-10px"></i> Email</label>
+                                {% render_field form.email type="email" class="form-control form-control-sm" required="true" %}
+
+                            </div>
+                            <div class="col-md-6 margin-bottom-20px">
+                                <label><i class="fas fa-mobile-alt margin-right-10px"></i> Phone</label>
+                                {% render_field form.mob type="number" class="form-control form-control-sm" required="true" %}
+                            </div>
+                            <div class="col-md-6">
+                                <label><i class="fas fa-genderless margin-right-10px"></i> Gender</label>
+                                {% render_field form.sex  class="form-control form-control-sm" required="true" %}
+                            </div>
+
+
+
+                            {% elif account.type == 'service_provider' %}
+                            <div class="col-md-6 margin-bottom-20px">
+                                <label><i class="far fa-user margin-right-10px"></i>Name</label>
+                                {% load widget_tweaks %}
+                                {% render_field form.name type="text" class="form-control form-control-sm" required="true" %}
+                            </div>
+                            <div class="col-md-6 margin-bottom-20px">
+                                <label><i class="far fa-envelope-open margin-right-10px"></i> Email</label>
+                                {% render_field form.email type="email" class="form-control form-control-sm" required="true" %}
+
+                            </div>
+                            <div class="col-md-6 margin-bottom-20px">
+                                <label><i class="fas fa-mobile-alt margin-right-10px"></i> Phone</label>
+                                {% render_field form.mob type="number" class="form-control form-control-sm" required="true" %}
+                            </div>
+                            <div class="col-md-6">
+                                <label><i class="fas fa-genderless margin-right-10px"></i> Gender</label>
+                                {% render_field form.sex  class="form-control form-control-sm" required="true" %}
+                            </div>
+                            <div class="col-md-6">
+                                <label><i class="far fa-calendar-alt margin-right-10px"></i> Age</label>
+                                {% render_field form.age  class="form-control form-control-sm" required="true" %}
+                            </div>
+                            <div class="col-md-6">
+                                <label><i class="fas fa-building margin-right-10px"></i> Organization</label>
+                                {% render_field form.organization  class="form-control form-control-sm" required="true" %}
+                            </div>
+                            <div class="col-md-6">
+                                <label><i class="fa fa-home margin-right-10px"></i> House</label>
+                                {% render_field form.house  class="form-control form-control-sm" required="true" %}
+                            </div>
+                            <div class="col-md-6">
+                                <label><i class="fas fa-map-marker-alt margin-right-10px"></i> Address Line 1</label>
+                                {% render_field form.street1  class="form-control form-control-sm" required="true" %}
+                            </div>
+                            <div class="col-md-6">
+                                <label><i class="fas fa-map-marker-alt margin-right-10px"></i> Address Line 2</label>
+                                {% render_field form.street2  class="form-control form-control-sm" required="true" %}
+                            </div>
+                            <div class="col-md-6">
+                                <label><i class="fas fa-map-marker-alt margin-right-10px"></i> City</label>
+                                {% render_field form.city  class="form-control form-control-sm" required="true" %}
+                            </div>
+                            <div class="col-md-6">
+                                <label><i class="fas fa-map-marker-alt margin-right-10px"></i> District</label>
+                                {% render_field form.district  class="form-control form-control-sm" required="true" %}
+                            </div>
+                            <div class="col-md-6">
+                                <label><i class="fas fa-map-marker-alt margin-right-10px"></i> State</label>
+                                {% render_field form.state  class="form-control form-control-sm" required="true" %}
+                            </div>
+                            <div class="col-md-6">
+                                <label><i class="fas fa-map-marker-alt margin-right-10px"></i> Pincode</label>
+                                {% render_field form.pin type="number"  class="form-control form-control-sm" required="true" %}
+                            </div>
+
+
+
+
+
+                            {% elif account.type == 'public' %}
+                            <div class="col-md-6 margin-bottom-20px">
+                                <label><i class="far fa-user margin-right-10px"></i>Name</label>
+                                {% load widget_tweaks %}
+                                {% render_field form.name type="text" class="form-control form-control-sm" required="true" %}
+                            </div>
+                            <div class="col-md-6 margin-bottom-20px">
+                                <label><i class="far fa-envelope-open margin-right-10px"></i> Email</label>
+                                {% render_field form.email type="email" class="form-control form-control-sm" required="true" %}
+
+                            </div>
+                            <div class="col-md-6 margin-bottom-20px">
+                                <label><i class="fas fa-mobile-alt margin-right-10px"></i> Phone</label>
+                                {% render_field form.mob type="number" class="form-control form-control-sm" required="true" %}
+                            </div>
+                            <div class="col-md-6">
+                                <label><i class="fas fa-genderless margin-right-10px"></i> Gender</label>
+                                {% render_field form.sex  class="form-control form-control-sm" required="true" %}
+                            </div>
+                            <div class="col-md-6">
+                                <label><i class="far fa-calendar-alt margin-right-10px"></i> Age</label>
+                                {% render_field form.age  class="form-control form-control-sm" required="true" %}
+                            </div>
+                            <div class="col-md-6">
+                                <label><i class="fa fa-home margin-right-10px"></i> House</label>
+                                {% render_field form.house  class="form-control form-control-sm" required="true" %}
+                            </div>
+                            <div class="col-md-6">
+                                <label><i class="fas fa-map-marker-alt margin-right-10px"></i> Address Line 1</label>
+                                {% render_field form.street1  class="form-control form-control-sm" required="true" %}
+                            </div>
+                            <div class="col-md-6">
+                                <label><i class="fas fa-map-marker-alt margin-right-10px"></i> Address Line 2</label>
+                                {% render_field form.street2  class="form-control form-control-sm" required="true" %}
+                            </div>
+                            <div class="col-md-6">
+                                <label><i class="fas fa-map-marker-alt margin-right-10px"></i> City</label>
+                                {% render_field form.city  class="form-control form-control-sm" required="true" %}
+                            </div>
+                            <div class="col-md-6">
+                                <label><i class="fas fa-map-marker-alt margin-right-10px"></i> District</label>
+                                {% render_field form.district  class="form-control form-control-sm" required="true" %}
+                            </div>
+                            <div class="col-md-6">
+                                <label><i class="fas fa-map-marker-alt margin-right-10px"></i> State</label>
+                                {% render_field form.state  class="form-control form-control-sm" required="true" %}
+                            </div>
+                            <div class="col-md-6">
+                                <label><i class="fas fa-map-marker-alt margin-right-10px"></i> Pincode</label>
+                                {% render_field form.pin type="number"  class="form-control form-control-sm" required="true" %}
+                            </div>
+
+                            {% endif %}                            
+                            
+                        </div>
+                        <hr class="margin-tb-40px">
+                        <div class="row">
+                            <!-- <div class="col-md-6 margin-bottom-20px">
+                                <label><i class="fab fa-facebook margin-right-10px"></i> Facebook</label>
+                                <input type="text" class="form-control form-control-sm" placeholder="http://www.facebook.com">
+                            </div>
+                            <div class="col-md-6 margin-bottom-20px">
+                                <label><i class="fab fa-twitter margin-right-10px"></i> Twitter</label>
+                                <input type="text" class="form-control form-control-sm" placeholder="http://www.twitter.com">
+                            </div>
+                            <div class="col-md-6 margin-bottom-20px">
+                                <label><i class="fab fa-youtube margin-right-10px"></i> Youtube</label>
+                                <input type="text" class="form-control form-control-sm" placeholder="http://www.youtube.com">
+                            </div>
+                            <div class="col-md-6 margin-bottom-20px">
+                                <label><i class="fab fa-google-plus-g margin-right-10px"></i> Google Pluse</label>
+                                <input type="text" class="form-control form-control-sm" placeholder="http://www.google-plus.com">
+                            </div>
+                            <div class="col-md-6 margin-bottom-20px">
+                                <label><i class="fab fa-whatsapp margin-right-10px"></i> Whatsapp</label>
+                                <input type="text" class="form-control form-control-sm" placeholder="http://www.whatsapp.com">
+                            </div> -->
+
+                        </div>
+                        <button type="submit" class="btn btn-md padding-lr-25px  text-white background-main-color btn-inline-block">Update Profile</button>
+                            </form>
+                    </div>
+                </div>
+ 
+    
+                
+                
+            </div>
+        </div>
+
+    </div>
+</div>
+<!-- /.container-fluid-->
+<!-- /.content-wrapper-->
+{% include 'common/small_footer.html' %}
+<!-- Scroll to Top Button-->
+<a class="scroll-to-top rounded" href="#page-top">
+  <i class="fa fa-angle-up"></i>
+</a>
+</div>
+
+{% endblock %}

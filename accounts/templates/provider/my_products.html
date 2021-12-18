@@ -1,0 +1,87 @@
+{% extends 'common/dashboard_main.html' %}
+{% load static %}
+{% block content %}
+{% include 'common/header.html' %}
+<!-- // Header  -->
+{% include 'provider/sidenav.html' %}
+
+<div class="content-wrapper">
+<div class="container-fluid overflow-hidden">
+    <div class="row margin-tb-90px margin-lr-10px sm-mrl-0px">
+        <!-- Page Title -->
+        <div id="page-title" class="padding-30px background-white full-width box-shadow">
+            <div class="container">
+                <ol class="breadcrumb opacity-5">
+                    <li><a href="{% url 'home' %}">Dashboard</a></li>
+                    <li><i class="ti ti-arrow-circle-right"></i></li>
+                    <li class="active">My Products</li>
+                </ol>
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-6">
+                            <h1 class="font-weight-300">My Products</h1>
+                        </div>
+                        <div class="col-6">
+                            <div class="text-right">
+                                <!-- <a href="dashboard-add-listing.html" class=" btn btn-sm border-radius-30  text-white background-second-color  box-shadow  padding-lr-25px margin-left-30px" data-toggle="modal" data-target="#addservice"><i class="fas fa-plus-circle  margin-right-7px"></i> Add service</a> -->
+                            </div>
+                        </div> 
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+
+        
+        <!-- // Page Title -->
+        <div class="container-fluid">
+            <div class="row" style="margin-top:40px">
+
+                {% for i in sp %}
+                <div class="col-lg-4 col-md-4  col-sm-6 sm-mb-40px wow fadeInUp" data-wow-delay="0.2s" style="visibility: visible; animation-delay: 0.2s; animation-name: fadeInUp;margin-top: 30px;">
+                    <a href="{% url 'product' i.id %}">
+                        <div class="pricing hover-effect">
+                            <div class="pricing-head text-center">
+                                <h3 class="font-weight-700 padding-40px background-main-color margin-0px text-white">
+                                    <span class=" z-index-2 position-relative d-block">{{i.name|title}}<span class="d-block text-small font-weight-300"></span>
+                                    </span>
+                                </h3>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                {% empty %}
+                <div class="alert alert-danger  margin-bottom-35px border-radius-10 padding-30px">
+                    <strong>OOPS!</strong> No Services found
+                    <hr>
+                    <p class="margin-0px">Add new services to be listed out over here.</p>
+                </div>
+                {% endfor %}
+    
+    
+                
+                <!-- pagination -->
+                <!-- <ul class="pagination pagination-md ">
+                    <li class="page-item disabled"><a class="page-link rounded-0" href="#" tabindex="-1">Previous</a></li>
+                    <li class="page-item"><a class="page-link" href="#">1</a></li>
+                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                    <li class="page-item"><a class="page-link rounded-0" href="#">Next</a></li>
+                </ul> -->
+                <!-- //pagination -->
+    
+            </div>
+        </div>
+
+    </div>
+</div>
+<!-- /.container-fluid-->
+<!-- /.content-wrapper-->
+{% include 'common/small_footer.html' %}
+<!-- Scroll to Top Button-->
+<a class="scroll-to-top rounded" href="#page-top">
+  <i class="fa fa-angle-up"></i>
+</a>
+</div>
+
+{% endblock %}

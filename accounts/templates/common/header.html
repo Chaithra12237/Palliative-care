@@ -1,0 +1,99 @@
+{% load static %}
+<header>
+    <div id="fixed-header-dark" class="header-output fixed-header" style="background-color: white;">
+        <div class="container header-in">
+
+            <div class="row">
+                <div class="col-lg-2 col-md-12">
+                    <a id="logo" href="{% url 'index' %}" class="d-inline-block margin-tb-15px"><img
+                            src="{% static 'assets/img/logo-1.png' %}" alt=""></a>
+                    <a class="mobile-toggle padding-13px background-main-color" href="#"><i class="fas fa-bars"></i></a>
+                </div>
+                <div class="col-lg-7 col-md-12 position-inherit">
+                    <ul id="menu-main" class="nav-menu float-lg-right link-padding-tb-20px">
+                        <li><a href="{% url 'index' %}">Home</a>
+                        </li>
+                        <!-- <li class="has-dropdown"><a href="#">Listings</a>
+                            <ul class="sub-menu">
+                                <li><a href="map-grid-layout.html">Map - Grid Layout </a></li>
+                                <li><a href="map-list-layout.html">Map - List Layout</a></li>
+                                <li><a href="doctor-layout-1.html">Doctor - Layout (1)</a></li>
+                                <li><a href="doctor-layout-2.html">Doctor - Layout (2)</a></li>
+                                <li><a href="single-listings.html">Single Listings</a></li>
+                            </ul>
+                        </li> -->
+                        <li><a href="{% url 'home' %}">Dashboard</a>
+                            <!-- <ul class="sub-menu">
+                                <li><a href="dashboard-home.html">Dashboard Home </a></li>
+                                <li><a href="dashboard-my-listings.html">My Listings</a></li>
+                                <li><a href="dashboard-my-favorites.html">My Favorites</a></li>
+                                <li><a href="dashboard-reviews.html">Reviews</a></li>
+                                <li><a href="dashboard-bookings.html">Bookings</a></li>
+                                <li><a href="dashboard-add-listing.html">Add Listing</a></li>
+                                <li><a href="dashboard-packages.html">Packages</a></li>
+                                <li><a href="dashboard-my-profile.html">My Profile</a></li>
+                            </ul> -->
+                        </li>
+                        <!-- <li class="has-dropdown"><a href="#">Blog</a>
+                            <ul class="sub-menu">
+                                <li><a href="blog-grid.html">Blog Grid </a></li>
+                                <li><a href="blog-list.html">Blog List</a></li>
+                                <li><a href="blog-classic.html">Blog Classic</a></li>
+                                <li><a href="blog-single.html">Blog Single</a></li>
+                            </ul>
+                        </li>
+                        <li class="has-dropdown"><a href="#">Pages</a>
+                            <ul class="sub-menu">
+                                <li><a href="page-about.html">About Us </a></li>
+                                <li><a href="dashboard-add-listing.html">Add Listing</a></li>
+                                <li><a href="page-login.html">Login Page</a></li>
+                                <li><a href="page-sign-up.html">sign up</a></li>
+                                <li><a href="page-pricing-tables.html">Pricing Tables</a></li>
+                                <li><a href="page-contact-us.html">Contact Us</a></li>
+                                <li><a href="page-404.html">Pages 404</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="page-contact-us.html">Conact Us</a></li> -->
+                        {% if request.user.is_authenticated %}
+                        <li><a href="{% url 'home' %}"><img src="{{account.profile_picture.url}}" class="height-30px border-radius-30" alt=""> {{account.name|title}}</a></li>
+                        <li><a href="{% url 'logout' %}" data-toggle="modal" data-target="#exampleModal"><i class="fa fa-fw fa-sign-out-alt"></i>Logout</a></li>
+                        {% else %}
+                        <li><a href="{% url 'login' %}"><i class="far fa-user"></i> Login</a></li>
+                        {% endif %}
+                    </ul>
+                </div>
+                <div class="col-lg-3 col-md-12">
+                    <hr class="margin-bottom-0px d-block d-sm-none">
+                    <!-- {% if request.user.is_authenticated %}
+                        
+                    <a href="{% url 'home' %}" class="margin-top-15px d-inline-block text-grey-3 margin-right-15px"><img src="{{account.profile_picture.url}}" class="height-30px border-radius-30" alt=""> {{account.name|title}}</a>
+                    <a href="{% url 'logout' %}" class="margin-tb-20px d-inline-block text-up-small float-left float-lg-right" data-toggle="modal" data-target="#exampleModal"><i class="fa fa-fw fa-sign-out-alt"></i>Logout</a>
+                    
+                    {% else %}
+                    <a href="{% url 'login' %}" class="margin-tb-20px d-inline-block text-up-small float-left float-lg-right text-right"><i class="far fa-user"></i> Login</a>
+                    {% endif %} -->
+                </div>
+            </div>
+
+        </div>
+    </div>
+</header>
+
+<!-- Logout Modal-->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">×</span>
+        </button>
+            </div>
+            <div class="modal-body">Are you sure you want to end your current session.</div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                <a class="btn btn-primary" href="{% url 'logout' %}">Logout</a>
+            </div>
+        </div>
+    </div>
+</div>

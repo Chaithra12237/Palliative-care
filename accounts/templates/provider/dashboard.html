@@ -1,0 +1,93 @@
+{% extends 'common/dashboard_main.html' %}
+{% load static %}
+{% block content %}
+{% include 'common/header.html' %}
+<!-- // Header  -->
+{% include 'provider/sidenav.html' %}
+
+
+<div class="content-wrapper">
+    <div class="container-fluid overflow-hidden">
+        <div class="row margin-tb-90px margin-lr-10px sm-mrl-0px">
+
+            <div class="col-xl-3 col-md-6 margin-bottom-30px">
+                <a class="d-block padding-30px background-main-color box-shadow border-radius-10 hvr-float">
+                    <h6 class="text-white margin-0px font-weight-400">
+                        <i class="far fa-map text-icon-large margin-bottom-10px opacity-5 d-block"></i>
+                        <span class="font-2 text-extra-large">{{service}}</span>
+                        <span class="margin-left-10px">My Services</span>
+                    </h6>
+                </a>
+            </div>
+
+            <div class="col-xl-3 col-md-6 margin-bottom-30px">
+                <a class="d-block padding-30px background-lime box-shadow border-radius-10 hvr-float">
+                    <h6 class="text-white margin-0px font-weight-400">
+                        <i class="far fa-user text-icon-large margin-bottom-10px opacity-5 d-block"></i>
+                        <span class="font-2 text-extra-large">{{product}}</span>
+                        <span class="margin-left-10px">My Products</span>
+                    </h6>
+                </a>
+            </div>
+
+            <div class="col-xl-3 col-md-6 margin-bottom-30px">
+                <a class="d-block padding-30px background-red box-shadow border-radius-10 hvr-float">
+                    <h6 class="text-white margin-0px font-weight-400">
+                        <i class="fas fa-chart-line text-icon-large margin-bottom-10px opacity-5 d-block"></i>
+                        <span class="font-2 text-extra-large">{{booking}}</span>
+                        <span class="margin-left-10px">Bookings</span>
+                    </h6>
+                </a>
+            </div>
+
+            <div class="col-xl-3 col-md-6 margin-bottom-30px">
+                <a class="d-block padding-30px background-amber box-shadow border-radius-10 hvr-float">
+                    <h6 class="text-white margin-0px font-weight-400">
+                        <i class="far fa-star text-icon-large margin-bottom-10px opacity-5 d-block"></i>
+                        <span class="font-2 text-extra-large">{{message}}</span>
+                        <span class="margin-left-10px">Unread Admin Message</span>
+                    </h6>
+                </a>
+            </div>
+
+            
+
+            <div class="col-12">
+
+                <!-- <div class="alert alert-info  margin-bottom-35px border-radius-10 padding-30px">
+                    <strong>Success!</strong> Indicates a successful or positive action.
+                    <hr>
+                    <p class="margin-0px">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s</p>
+                </div> -->
+
+                <div class="row">
+                    <div class="col-lg-6">
+                        
+
+                        <!-- -->
+                        
+                    </div>
+
+                    <div class="col-lg-6">
+                        <!-- -->
+                        
+                    </div>
+                </div>
+
+
+
+            </div>
+        </div>
+
+
+    </div>
+    <!-- /.container-fluid-->
+    <!-- /.content-wrapper-->
+    {% include 'common/small_footer.html' %}
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+      <i class="fa fa-angle-up"></i>
+    </a>
+    
+</div>
+{% endblock %}
