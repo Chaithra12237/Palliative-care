@@ -1,0 +1,164 @@
+{% extends 'common/dashboard_main.html' %}
+{% load static %}
+{% block content %}
+{% include 'common/header.html' %}
+<!-- // Header  -->
+{% include 'admin/sidenav.html' %}
+
+<div class="content-wrapper">
+<div class="container-fluid overflow-hidden">
+    <div class="row margin-tb-90px margin-lr-10px sm-mrl-0px">
+        <!-- Page Title -->
+        <div id="page-title" class="padding-30px background-white full-width box-shadow">
+            <div class="container">
+                <ol class="breadcrumb opacity-5">
+                    <li><a href="{% url 'home' %}">Dashboard</a></li>
+                    <li><i class="ti ti-arrow-circle-right"></i></li>
+                    <li class="active">All Services</li>
+                </ol>
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-6">
+                            <h1 class="font-weight-300">All Services</h1>
+                        </div>
+                        <div class="col-6">
+                            <div class="text-right">
+                                <a href="dashboard-add-listing.html" class=" btn btn-sm border-radius-30  text-white background-second-color  box-shadow  padding-lr-25px margin-left-30px" data-toggle="modal" data-target="#addservice"><i class="fas fa-plus-circle  margin-right-7px"></i> Add service</a>
+                            </div>
+                        </div> 
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+
+        <!-- Logout Modal-->
+        <div class="modal fade" id="addservice" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Add New Service</h5>
+                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">×</span>
+                </button>
+                    </div>
+                    <form method="post" action>
+                    <div class="modal-body">
+                        
+                            {% csrf_token %}
+                            {% load widget_tweaks %} 
+                            {% render_field form.category class="form-control" placeholder="Enter service name" %}
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                        <button class="btn btn-primary" type="submit">Add</button>
+                    </div>
+                </form>
+                </div>
+            </div>
+        </div>
+        <!-- // Page Title -->
+        <div class="container-fluid">
+            <div class="row" style="margin-top:40px">
+
+                {% for i in services %}
+                <div class="col-lg-4 col-md-4  col-sm-6 sm-mb-40px wow fadeInUp" data-wow-delay="0.2s" style="visibility: visible; animation-delay: 0.2s; animation-name: fadeInUp;margin-top: 30px;">
+                    <a href="#" data-toggle="modal" data-target="#updateservice_{{i.id}}">
+                        <div class="pricing hover-effect">
+                            <div class="pricing-head text-center">
+                                <h3 class="font-weight-700 padding-40px background-main-color margin-0px text-white">
+                                    <span class=" z-index-2 position-relative d-block">{{i.category|title}}<span class="d-block text-small font-weight-300"></span>
+                                    </span>
+                                </h3>
+                            </div>
+                        </div>
+                    </a>
+                    <div class="pricing-footer">
+                        <a href="#" class="btn btn-block background-grey-1 text-dark rounded-0" data-toggle="modal" data-target="#deleteservice_{{i.id}}"><i class="ti ti-trash"></i> Delete</a>
+                        
+
+                                <div class="modal fade" id="updateservice_{{i.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel">Update Service</h5>
+                                                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">×</span>
+                                        </button>
+                                            </div>
+                                            <form method="post" action="{% url 'update_admin_service' i.id %}">
+                                            <div class="modal-body">
+                                                
+                                                    {% csrf_token %}
+                                                    <input type="text" class="form-control" name="update_service_name" value="{{i.category|title}}">
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                                                <button class="btn btn-primary" type="submit">Update</button>
+                                            </div>
+                                        </form>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="modal fade" id="deleteservice_{{i.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel">{{i.category|title}} Service</h5>
+                                                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">×</span>
+                                        </button>
+                                            </div>
+                                            <form method="post" action="{% url 'delete_admin_service' i.id %}">
+                                            <div class="modal-body">
+                                                
+                                                    {% csrf_token %}
+                                                    <p><b>Are you sure you want to delete this service?</b></p>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                                                <button class="btn btn-danger" type="submit">Delete</button>
+                                            </div>
+                                        </form>
+                                        </div>
+                                    </div>
+                                
+                        </div>
+                    </div>
+                </div>
+                {% empty %}
+                <div class="alert alert-danger  margin-bottom-35px border-radius-10 padding-30px">
+                    <strong>OOPS!</strong> No Services found
+                    <hr>
+                    <p class="margin-0px">Add new services to be listed out over here.</p>
+                </div>
+                {% endfor %}
+    
+    
+                
+                <!-- pagination -->
+                <!-- <ul class="pagination pagination-md ">
+                    <li class="page-item disabled"><a class="page-link rounded-0" href="#" tabindex="-1">Previous</a></li>
+                    <li class="page-item"><a class="page-link" href="#">1</a></li>
+                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                    <li class="page-item"><a class="page-link rounded-0" href="#">Next</a></li>
+                </ul> -->
+                <!-- //pagination -->
+    
+            </div>
+        </div>
+
+    </div>
+</div>
+<!-- /.container-fluid-->
+<!-- /.content-wrapper-->
+{% include 'common/small_footer.html' %}
+<!-- Scroll to Top Button-->
+<a class="scroll-to-top rounded" href="#page-top">
+  <i class="fa fa-angle-up"></i>
+</a>
+</div>
+
+{% endblock %}

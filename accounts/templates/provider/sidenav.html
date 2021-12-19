@@ -1,0 +1,95 @@
+<!-- Navigation-->
+<nav class="navbar navbar-expand-lg navbar-dark z-index-9  fixed-top" id="mainNav">
+
+    <div class="collapse navbar-collapse" id="navbarResponsive">
+
+        <ul class="navbar-nav navbar-sidenav background-main-color admin-nav" id="admin-nav">
+            <li class="nav-item">
+                <span class="nav-title-text">Main</span>
+            </li>
+            <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Dashboard">
+                <a class="nav-link" href="{% url 'home' %}">
+                    <i class="fas fa-fw fa-home"></i><span class="nav-link-text">Dashboard</span>
+                </a>
+            </li>
+            <li class="nav-item" data-toggle="tooltip" data-placement="right" title="My items">
+                <a class="nav-link" href="{% url 'available_services' %}">
+            <i class="far fa-fw fa-map"></i>
+            <span class="nav-link-text">All Services</span>
+          </a>
+            </li>
+            <!--<li class="nav-item" data-toggle="tooltip" data-placement="right" title="My Favorites">
+                <a class="nav-link" href="{% url 'my_services' %}">
+            <i class="fa fa-fw fa-heart"></i>
+            <span class="nav-link-text">My Services/Products</span>
+          </a>
+            </li>-->
+            
+            <li class="nav-item" data-toggle="tooltip" data-placement="right" title="My Favorites">
+                <a class="nav-link" href="{% url 'my_services' %}">
+            <i class="fa fa-fw fa-heart"></i>
+            <span class="nav-link-text">My Services</span>
+          </a>
+            </li>
+            <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Reviews">
+                <a class="nav-link" href="{% url 'my_products' %}">
+            <i class="fa fa-fw fa-heart"></i>
+            <span class="nav-link-text">My Products</span>
+          </a>
+            </li>
+            <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Reviews">
+                <a class="nav-link" href="{% url 'my_product_review' %}">
+            <i class="fa fa-fw fa-star"></i>
+            <span class="nav-link-text">Reviews</span>
+          </a>
+            </li>
+            <li class="nav-item">
+                <span class="nav-title-text">Important Pages</span>
+            </li>
+            <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Bookings">
+                <a class="nav-link" href="{% url 'bookings' %}">
+                    <i class="far fa-fw fa-bookmark"></i>
+                    <span class="nav-link-text">Bookings</span>
+                </a>
+            </li>
+            <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Add Listing">
+                <a class="nav-link" href="{% url 'my_message' %}">
+                    <i class="fa fa-fw fa-comment-alt"></i>
+                    <span class="nav-link-text">Admin Message</span>
+                </a>
+            </li>
+            <!-- <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Packages">
+                <a class="nav-link" href="dashboard-packages.html">
+                    <i class="far fa-fw fa-list-alt"></i>
+                    <span class="nav-link-text">Packages</span>
+                </a>
+            </li> -->
+
+            <li class="nav-item">
+                <span class="nav-title-text">User Area</span>
+            </li>
+            <li class="nav-item" data-toggle="tooltip" data-placement="right" title="My Profile">
+                <a class="nav-link" href="{% url 'profile' %}">
+                    <i class="fa fa-fw fa-user-circle"></i>
+                    <span class="nav-link-text">My Profile</span>
+                </a>
+            </li>
+            <li class="nav-item" data-toggle="tooltip" data-placement="right" title="My Profile">
+                <a class="nav-link" href="{% url 'change_password' %}">
+                    <i class="fas fa-fw fa-key"></i>
+                    <span class="nav-link-text">Change Password</span>
+                </a>
+            </li>
+            <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Sing Out">
+                <a class="nav-link" href="{% url 'logout' %}" data-toggle="modal" data-target="#exampleModal">
+                    <i class="fa fa-fw fa-sign-out-alt"></i>
+                    <span class="nav-link-text">Sign Out</span>
+                </a>
+            </li>
+        </ul>
+
+
+
+
+    </div>
+</nav>

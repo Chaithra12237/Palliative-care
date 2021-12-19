@@ -1,0 +1,56 @@
+{% extends 'common/main.html' %}
+{% load static %}
+{% block content %}
+{% include 'common/header.html' %}
+<!-- // Header  -->
+<br><br><br>
+<div id="page-title" class="padding-tb-30px gradient-white">
+    <div class="container text-center">
+        <ol class="breadcrumb opacity-5">
+            <li><a href="{% url 'index' %}">Home</a></li>
+            <li class="active">Login</li>
+        </ol>
+        <h1 class="font-weight-300">Login Page</h1>
+    </div>
+</div>
+
+<div class="container margin-bottom-100px">
+    <!--======= log_in_page =======-->
+    <div id="log-in" class="site-form log-in-form box-shadow border-radius-10">
+
+        <div class="form-output">
+            <form method="post" action>
+                {% csrf_token %}
+                {% if msg %}
+                <div class="form-group label-floating">
+                    <code>{{ msg }}</code>
+                </div>
+                {% endif %}
+                <div class="form-group label-floating">
+                    <label class="control-label">Your Email</label>
+                    <input name="username" class="form-control" placeholder="" type="text">
+                </div>
+                <div class="form-group label-floating">
+                    <label class="control-label">Your Password</label>
+                    <input name="password" class="form-control" placeholder="" type="password">
+                </div>
+
+                <div class="remember">
+                    <a href="{% url 'reset_password' %}" class="forgot">Forgot my Password</a>
+                </div>
+                
+                <button type="submit" class="btn btn-md btn-primary full-width">Login</button>
+
+                <div class="or"></div>
+
+
+                <p>Don't you have an account? <a href="{% url 'provider_signup' %}">Register as a Service Provider</a> / <a href="{% url 'user_signup' %}">Register as a User</a> </p>
+            </form>
+        </div>
+    </div>
+    <!--======= // log_in_page =======-->
+
+</div>
+
+{% include 'common/footer.html' %}
+{% endblock %}

@@ -1,0 +1,110 @@
+{% extends 'common/dashboard_main.html' %}
+{% load static %}
+{% block content %}
+{% include 'common/header.html' %}
+<!-- // Header  -->
+{% include 'user/sidenav.html' %}
+
+<div class="content-wrapper">
+<div class="container-fluid overflow-hidden">
+    <div class="row margin-tb-90px margin-lr-10px sm-mrl-0px">
+        <!-- Page Title -->
+        <div id="page-title" class="padding-30px background-white full-width box-shadow">
+            <div class="container">
+                <ol class="breadcrumb opacity-5">
+                    <li><a href="{% url 'home' %}">Dashboard</a></li>
+                    <li><i class="ti ti-arrow-circle-right"></i></li>
+                    <li class="active">My Reviews</li>
+                </ol>
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-6">
+                            <h1 class="font-weight-300">My Reviews</h1>
+                        </div>
+                        <div class="col-6">
+                            <div class="text-right">
+                            </div>
+                        </div> 
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+
+        
+        <!-- // Page Title -->
+       
+
+
+
+
+
+
+
+
+
+
+        <div class="row margin-tb-45px">
+           {% for i in review %}
+           
+            <!-- Review item -->
+            <div class="col-lg-6 margin-bottom-45px">
+                <div class="background-white thum-hover box-shadow hvr-float">
+                    <div class="padding-30px">
+                     <!--  <img src="assets/img/testimonial-1.png" class="float-left margin-right-20px border-radius-60 margin-bottom-20px" alt=""> --> 
+                        <div class="margin-left-85px">
+                            <a class="d-inline-block text-dark text-medium margin-right-20px" href="#">{{i.user}}</a>
+                            <span class="text-extra-small">Date :  <a href="#" class="text-main-color">{{i.datetime|date}}</a></span>
+                            <!--
+                            <div class="rating">
+                                <ul>
+                                    <li class="active"></li>
+                                    <li class="active"></li>
+                                    <li class="active"></li>
+                                    <li class="active"></li>
+                                    <li></li>
+                                </ul>
+                            </div>
+                            -->
+                            <p class="margin-top-15px text-grey-2">{{i.message}}</p>
+                            <a href="#" class="d-inline-block text-grey-2 text-up-small"><i class="far fa-file-alt"></i> Edit</a>
+                            <a href="#" class="d-inline-block margin-lr-20px text-grey-2 text-up-small"><i class="far fa-window-close"></i> Delete</a>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- // Review item -->
+
+
+           {% endfor %}
+
+        </div>
+
+
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+</div>
+<!-- /.container-fluid-->
+<!-- /.content-wrapper-->
+{% include 'common/small_footer.html' %}
+<!-- Scroll to Top Button-->
+<a class="scroll-to-top rounded" href="#page-top">
+  <i class="fa fa-angle-up"></i>
+</a>
+</div>
+
+{% endblock %}

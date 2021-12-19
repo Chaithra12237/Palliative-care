@@ -1,0 +1,162 @@
+{% extends 'common/dashboard_main.html' %}
+{% load static %}
+{% block content %}
+{% include 'common/header.html' %}
+<!-- // Header  -->
+{% include 'provider/sidenav.html' %}
+
+<div class="content-wrapper">
+<div class="container-fluid overflow-hidden">
+    <div class="row margin-tb-90px margin-lr-10px sm-mrl-0px">
+        <!-- Page Title -->
+        <div id="page-title" class="padding-30px background-white full-width box-shadow">
+            <div class="container">
+                <ol class="breadcrumb opacity-5">
+                    <li><a href="{% url 'home' %}">Dashboard</a></li>
+                    <li><i class="ti ti-arrow-circle-right"></i></li>
+                    <li><a href="{% url 'my_services' %}">My Services/Products</a></li>
+                    <li><i class="ti ti-arrow-circle-right"></i></li>
+                    <li class="active">{{ps.service.category|title}}</li>
+                </ol>
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-6">
+                            <h1 class="font-weight-300">{{ps.service.category|title}}</h1>
+                            {% if form.errors %}
+                                {% for field in form %}
+                                    {% for error in field.errors %}
+                                        <div class="form-group label-floating">
+                                            <div class="alert alert-danger" style="margin-left:20px">
+                                                <code>{{ error }}</code>
+                                            </div>
+                                        </div>
+                                    {% endfor %}
+                                {% endfor %}
+                            {% endif %}
+                        </div>
+                        <div class="col-6">
+                            <div class="text-right">
+                                <a href="#" class=" btn btn-sm border-radius-30  text-white background-second-color  box-shadow  padding-lr-25px margin-left-30px" data-toggle="modal" data-target="#addproduct"><i class="fas fa-plus-circle  margin-right-7px"></i> Add product</a>
+                                <div class="modal fade" id="addproduct" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel">Add Product</h5>
+                                                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">×</span>
+                                        </button>
+                                            </div>
+                                            <form method="post" action>
+                                            <div class="modal-body">
+                                                
+                                                    {% csrf_token %}
+                                                    {% load widget_tweaks %}
+                                                    {% render_field form.name class="form-control" type="text" required=true placeholder="Name/Title" %}
+                                                    <br>
+                                                    {% render_field form.count class="form-control" type="text" placeholder="Count/stock" %}
+                                                    <br>
+                                                    {% render_field form.cost class="form-control" type="number" placeholder="Base charges" required=true %}
+                                                    <br>
+                                                    {% render_field form.details class="form-control" type="number" placeholder="Enter details" required=true %}
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                                                <button class="btn btn-primary" type="submit">Add</button>
+                                            </div>
+                                        </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                <a href="#" class=" btn btn-sm border-radius-30  text-white btn-danger  box-shadow  padding-lr-25px margin-left-30px" data-toggle="modal" data-target="#delservice"><i class="ti ti-trash  margin-right-7px"></i> Remove Service</a>
+                                <div class="modal fade" id="delservice" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel">Delete {{ps.service.category|title}} Service?</h5>
+                                                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">×</span>
+                                        </button>
+                                            </div>
+                                            <form method="post" action="{% url 'remove_service' ps.id %}">
+                                            <div class="modal-body">
+                                                
+                                                    {% csrf_token %}
+                                                    <p><b>Are you sure you want to delete this service and its products?</b></p>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                                                <button class="btn btn-danger" type="submit">Delete</button>
+                                            </div>
+                                        </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div> 
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+
+        
+        <!-- // Page Title -->
+        <div class="container-fluid">
+            <div class="row" style="margin-top:40px">
+
+                {% for i in sp %}
+                <div class="col-lg-4 col-md-4  col-sm-6 sm-mb-40px wow fadeInUp" data-wow-delay="0.2s" style="visibility: visible; animation-delay: 0.2s; animation-name: fadeInUp;margin-top: 30px;">
+                    <a href="">
+                        <div class="pricing hover-effect">
+                            <div class="pricing-head text-center">
+                                <h3 class="font-weight-700 padding-40px background-main-color margin-0px text-white">
+                                    <span class=" z-index-2 position-relative d-block">{{i.name|title}}<span class="d-block text-small font-weight-300"></span>
+                                    </span>
+                                </h3>
+                            </div>
+                            <ul class="pricing-content text-center list-unstyled background-white">
+                                <li><strong>{{i.count}}</strong> Count</li>
+                                <li><strong>{{i.cost}}</strong> Basic Charge</li>
+                                <li>{{i.details}}</li>
+                            </ul>
+                            <div class="pricing-footer">
+                                <a href="{% url 'remove_product' i.id %}" class="btn btn-block background-grey-1 text-dark rounded-0">Delete</a>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                {% empty %}
+                <div class="alert alert-danger  margin-bottom-35px border-radius-10 padding-30px">
+                    <strong>OOPS!</strong> No SubProducts found
+                    <hr>
+                    <p class="margin-0px">Add new subproduct to be listed out over here.</p>
+                </div>
+                {% endfor %}
+    
+    
+                
+                <!-- pagination -->
+                <!-- <ul class="pagination pagination-md ">
+                    <li class="page-item disabled"><a class="page-link rounded-0" href="#" tabindex="-1">Previous</a></li>
+                    <li class="page-item"><a class="page-link" href="#">1</a></li>
+                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                    <li class="page-item"><a class="page-link rounded-0" href="#">Next</a></li>
+                </ul> -->
+                <!-- //pagination -->
+    
+            </div>
+        </div>
+
+    </div>
+</div>
+<!-- /.container-fluid-->
+<!-- /.content-wrapper-->
+{% include 'common/small_footer.html' %}
+<!-- Scroll to Top Button-->
+<a class="scroll-to-top rounded" href="#page-top">
+  <i class="fa fa-angle-up"></i>
+</a>
+</div>
+
+{% endblock %}
